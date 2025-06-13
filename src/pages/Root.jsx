@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import supabase from '../config/supabase';
 
 export default function Root() {
-    console.log(supabase);
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 px-4">
       <div className="bg-white p-10 rounded-2xl shadow-2xl text-center w-full max-w-md">

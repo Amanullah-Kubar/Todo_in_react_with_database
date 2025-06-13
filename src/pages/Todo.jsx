@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import supabase from "../config/supabase";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Todo() {
+    
+    const navigate = useNavigate();
     const [todos, setTodos] = useState([]);
+
     const fetcchTodos = async () => {
         const { data, error } = await supabase
             .from('todos')
@@ -15,21 +19,56 @@ export default function Todo() {
         }
     }
     useEffect(() => {
+
         fetcchTodos();
     }, []);
     onchange = async (e) => {
-        // const {data, error} = await supabase
-        // .from('todos')
-        // .update()
+    }
+
+    const onchangeic = async (id) => {
+        const targ = todos.find(todo => todo.id === id);
+        const { data, error } = await supabase
+            .from('todos')
+            .update({ 'isCompleted': !targ.isCompleted })
+            .eq('id', targ.id);
+        if (error) {
+            console.error('Error updating todo:', error.message);
+        }
+        else {
+            setTodos(todos.map(todo => todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo));
+        }
     }
 
     const handlecross = async (e) => {
-
+        const {data, errot} = await supabase
+        .from('todos')
+        .delete()
+        .eq('id', e);
+        if (errot) {
+            console.error('Error deleting todo:', errot.message);
+        } else {
+            setTodos(todos.filter(todo => todo.id !== e));
+        }
     }
+
+    const handleEdit = async (e) => {
+    }
+
     return (
+        
         <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 flex items-center justify-center px-4">
             <div className="bg-white shadow-xl rounded-2xl p-6 w-full max-w-md">
-                <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">📝 My To-Do List</h1>
+                <div className="flex">
+                    <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">📝 My To-Do List</h1>
+                    <div className="ml-auto">
+                        <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition" onClick={() => {setTodos([])
+                            localStorage.setItem('userId' , null);
+                            navigate('/login');
+                        }}>
+                            Logout
+                        </button>
+                    </div>
+                </div>
 
                 {/* Input Section */}
                 <div className="flex mb-4">
@@ -43,24 +82,40 @@ export default function Todo() {
 
                 {/* Task List */}
                 <ul className="space-y-3">
-                    {/* Example Task */}
                     {
                         todos.length > 0 ? todos.map((todo) => (
                             <li key={todo.id} className="flex items-center justify-between bg-gray-100 p-3 rounded-md shadow-sm">
                                 <div className="flex items-center space-x-2">
-                                    <input type="checkbox" className="h-4 w-4 text-indigo-600" checked={todo.status} onChange={() => onchange(todo.id)} />
+                                    <input type="checkbox" 
+                                    className="h-4 w-4 text-indigo-600" 
+                                    checked={todo.isCompleted} 
+                                    onChange={() => onchangeic(todo.id)} />
                                     <span className={`text-gray-700 ${todo.completed ? 'line-through' : ''}`}>{todo.title}</span>
                                 </div>
-                                <button className="text-red-500 hover:text-red-700" onClick={handlecross}>✕</button>
+                                <div className="flex space-x-2">
+                                    <button
+                                        className="text-blue-500 hover:text-blue-700"
+                                        onClick={() => handleEdit(todo.id)}
+                                    >
+                                        📝
+                                    </button>
+                                    <button
+                                        className="text-red-500 hover:text-red-700"
+                                        onClick={() => handlecross(todo.id)}
+                                    >
+                                        ✕
+                                    </button>
+                                </div>
                             </li>
                         )) : <p className="text-gray-500 text-center">No tasks available</p>
                     }
-
-                    {/* Add more <li> items dynamically */}
                 </ul>
 
                 <div className="flex justify-center mt-6">
-                    <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+                    <button 
+                    className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+                    onClick={() => navigate('/addtodo')}
+                    >
                         Add
                     </button>
                 </div>

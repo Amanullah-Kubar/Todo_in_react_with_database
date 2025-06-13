@@ -28,8 +28,6 @@ export default function SignupForm() {
             }
             else {
                 console.log('User signed up successfully:', data);
-                // Optionally redirect to login page
-                // window.location.href = '/login';
             }
       
     }
