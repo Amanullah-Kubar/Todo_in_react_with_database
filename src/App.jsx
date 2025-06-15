@@ -13,6 +13,7 @@ import Loginpage from './pages/LoginPage'
 import SignupForm from './pages/Signupform'
 import Root from './pages/Root';
 import AddTodoForm from './pages/AddTodoForm';
+import EditTodoForm from './pages/EditToDo';
 
 function App() {
   const userId = localStorage.getItem('userId')
@@ -27,6 +28,7 @@ function App() {
           <Route path="/login" element={<Loginpage />} />
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/addtodo" element={<AddTodoForm/>}/>
+          <Route path="/EditTodoForm" element={<EditTodoForm/>}/>
         </Routes>
       </Router>
 

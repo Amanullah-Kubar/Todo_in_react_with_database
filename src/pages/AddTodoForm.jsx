@@ -7,7 +7,7 @@ export default function AddTodoForm({ onTodoAdded }) {
     description: '',
     isCompleted: false,
     time: '',
-  });
+  }); 
 
   const [loading, setLoading] = useState(false);
 
@@ -111,3 +111,6 @@ export default function AddTodoForm({ onTodoAdded }) {
     </form>
   );
 }
+
+
+// componrnt to edit the existing todo

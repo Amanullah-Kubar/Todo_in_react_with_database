@@ -31,14 +31,14 @@ export default function Loginpage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 flex items-center justify-center px-4">
-            <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
-                <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">🔐 Login</h2>
+   <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 px-4">
+            <div className="bg-purple-600 shadow-xl rounded-2xl p-8 w-full max-w-md">
+                <h2 className="text-3xl font-bold text-gray-200 mb-6 text-center">🔐 Login</h2>
 
                 <form className="space-y-4" onSubmit={onsubmit}>
                     {/* Email */}
                     <div>
-                        <label className="block text-gray-700 font-semibold mb-1" htmlFor="email">
+                        <label className="block text-gray-100 font-semibold mb-1" htmlFor="email">
                             Email
                         </label>
                         <input
@@ -54,7 +54,7 @@ export default function Loginpage() {
 
                     {/* Password */}
                     <div>
-                        <label className="block text-gray-700 font-semibold mb-1" htmlFor="password">
+                        <label className="block text-gray-200 font-semibold mb-1" htmlFor="password">
                             Password
                         </label>
                         <input
@@ -71,15 +71,15 @@ export default function Loginpage() {
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        className="w-full bg-indigo-500 text-white py-2 rounded-md hover:bg-indigo-600 transition duration-200"
+                        className="w-full bg-indigo-700 text-white py-2 rounded-md hover:bg-indigo-900 transition duration-200"
                     >
                         Log In
                     </button>
                 </form>
 
                 {/* Footer */}
-                <p className="text-sm text-center text-gray-500 mt-6">
-                    Don’t have an account? <Link to='/signup' className="text-indigo-600 hover:underline">Sign up</Link>
+                <p className="text-sm text-center text-gray-100 mt-6">
+                    Don’t have an account? <Link to='/signup' className="text-indigo-200 hover:underline">Sign up</Link>
                 </p>
             </div>
         </div>
